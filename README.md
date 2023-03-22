@@ -5,9 +5,26 @@
 
 A react library developed with dumi
 
-## Usage
+## TODO
 
-TODO
+整理整体样式的赋值、支持后续组件的主题切换
+
+## 正在进行中的组件
+
+src
+-- Button
+
+## 已完成的组件
+
+src
+--
+
+## 已完成的工作类
+
+utils
+-- classname.ts → 用于对各模块的 css 进行整理，加入前缀和模块名
+
+## Usage
 
 ## Options
 
