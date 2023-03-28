@@ -1,0 +1,309 @@
+// Button variants
+//
+// Easily pump out default styles, as well as :hover, :focus, :active,
+// and disabled options for all buttons
+
+// * button的尺寸配置: 水平边距，垂直边距，字体大小，行高以及border-radius
+.button-size(@padding-vertical; @padding-horizontal; @font-size; @line-height; @border-radius) {
+  padding: @padding-vertical @padding-horizontal;
+  font-size: @font-size;
+  line-height: @line-height;
+  border-radius: @border-radius;
+}
+
+// * 颜色、宽度和颜色比例
+.button-case-box-shadow(@color, @width, @fade) {
+  // 区分不同type的值写多个样式
+  // * primary
+  & when(%("%s", @color) = %("%s", @btn-primary-border)) {
+    // todo 不同的主题，需要区分 @so-theme的值
+    // 透明度 60
+    & when(@fade = 60%) {
+      box-shadow: 0 0 0 @width @primary-color-dark-5_fade-60;
+    }
+
+    & when(@fade = 0%) {
+      box-shadow: 0 0 0 @width @primary-color-dark-5_fade-0;
+    }
+  }
+
+  // * default
+  & when(%("%s", @color) = %("%s", @btn-default-border)) {
+    & when(@fade = 60%) {
+      box-shadow: 0 0 0 @width @button-default-border-fade-60;
+    }
+
+    & when(@fade = 0%) {
+      box-shadow: 0 0 0 @width @button-default-border-fade-0;
+    }
+  }
+
+  // * success
+  & when(%("%s", @color) = %("%s", @btn-success-border)) {
+    & when(@fade = 60%) {
+      box-shadow: 0 0 0 @width @success-color-dark-5_fade-60;
+    }
+
+    & when(@fade = 0%) {
+      box-shadow: 0 0 0 @width @success-color-dark-5_fade-0;
+    }
+  }
+
+  // * secondary
+  & when(%("%s", @color) = %("%s", @btn-secondary-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @secondary-color-dark-5_fade-0;
+    }
+  }
+
+  // * warning
+  & when(%("%s", @color) = %("%s", @btn-warning-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @warning-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @warning-color-dark-5_fade-0;
+    }
+  }
+
+  // * danger
+  & when(%("%s", @color) = %("%s", @btn-danger-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @danger-color-dark-5_fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @danger-color-dark-5_fade-0;
+    }
+  }
+}
+
+// * 按钮触发的border样式 - hover和focus
+// 不同格式的button背景颜色
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-primary-bg)) {
+  background-color: @primary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-secondary-bg)) {
+  background-color: @secondary-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-success-bg)) {
+  background-color: @success-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-info-bg)) {
+  background-color: @info-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-warning-bg)) {
+  background-color: @warning-color-dark-btn-hover;
+}
+.button-case-background(@bg) when(%('%s', @bg) = %('%s', @btn-danger-bg)) {
+  background-color: @danger-color-dark-btn-hover;
+}
+.button-case-background(@bg) when (%('%s', @bg) = %('%s', @btn-default-bg)) {
+  background-color: @bg;
+}
+
+// * button被触发时的 边框border颜色
+.button-case-border-color(@color) {
+  & when(%("%s", @color) = %("%s", @btn-primary-border)) {
+    border-color: @colors-primary;
+  }
+  & when(%("%s", @color) = %("%s", @btn-secondary-border)) {
+    border-color: @colors-secondary;
+  }
+  & when(%("%s", @color) = %("%s", @btn-info-border)) {
+    border-color: @colors-info;
+  }
+  & when(%("%s", @color) = %("%s", @btn-warning-border)) {
+    border-color: @colors-warning;
+  }
+  & when(%("%s", @color) = %("%s", @btn-danger-border)) {
+    border-color: @colors-danger;
+  }
+  & when(%("%s", @color) = %("%s", @btn-default-border)) {
+    border-color: @colors-primary;
+  }
+}
+
+// 不同type模块的区分 - <变体的形式>
+/**
+ * color - 字体颜色
+ * background - 背景颜色
+ * ghost - 边框颜色：同时用于动画shadow
+ * name - 当前变体的名称
+ * border - border的颜色， 高于ghost
+*/
+.button-variant(@color; @background; @ghost; @name; @border:transparent) {
+  border-color: @border;
+  background-color: @background;
+  color: @color;
+  fill: @color;
+  // 过渡动态 transition: property duration timing-function delay = 0;
+  transition: all 0.15s ease-in-out;
+
+  // 根据不同的name 获取不同的过渡状态 ~动态计算: 用于active、hover状态变更
+  @keyname: ~'btn-focus-@{name}';
+
+  // 主要是变化背景色和边框
+  @keyframes @keyname {
+    0% {
+      .button-case-box-shadow(@ghost, 0, 60%);
+    }
+
+    50% {
+      .button-case-box-shadow(@ghost, (@btn-focus-width / 2), 0%);
+    }
+
+    100% {
+      .button-case-box-shadow(@ghost, @btn-focus-width, 0%);
+    }
+  }
+
+  // 鼠标放上去的效果
+  &:focus,
+  &:hover,
+  &:active {
+    .button-case-border-color(@ghost);
+    .button-case-background(@background);
+    color: @color;
+  }
+
+  // 鼠标点击中的效果
+  &:active {
+    animation: @keyname 0.4s ease-out;
+    background-image: none;
+  }
+
+  // 各type下的禁用样式
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      border-color: @border;
+      background-color: @background;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
+
+// * 透明模式下：ghost的样式,ghost背景透明、color为背景色
+.button-ghost(@color; @background; @border) {
+  border-color: @border;
+  background: transparent;
+  color: @border;
+  fill: @border;
+
+  // 恢复为不透明的样式
+  &:focus,
+  &:hover {
+    background-color: @background;
+    color: @color;
+  }
+
+  &:active {
+    animation: @keyname 0.4s ease-out;
+    background-color: @background;
+    color: @color;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      border-color: @border;
+      background: transparent;
+      color: @border;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
+
+// * group样式下的
+.button-group-border() {
+  // 默认所有的元素左侧border颜色
+  &:before {
+    border-left-color: #d9d9d9;
+    transition: all .2s;
+  }
+
+  // not ghost - 不是透明背景情况、且不为default、不是disabled的情况 左侧边框设置为白色
+  &:not(.@{button-prefix}-ghost):not(.@{button-prefix}-default):not(.@{button-prefix}-disabled):before {
+    border-left-color: white;
+  }
+
+  // ghost: 不为default  则使用button的color颜色
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-default):before {
+    border-left-color: inherit;
+  }
+
+  // 若是disabled后紧跟一个不为default的按钮  其按钮before应消失
+  &.@{button-prefix}-disabled + .@{button-prefix}:not(.@{button-prefix}-disabled) {
+    &:before {
+      border-left-color: transparent;
+    }
+
+    // 若为透明背景色，则直接表现为当前按钮的颜色
+    &.@{button-prefix}-ghost:not(@{button-prefix}-default) {
+      &:before {
+        height: 100%;
+        border-left-color:  @colors-primary;
+      }
+    }
+  }
+
+  // disabled后为disabled
+  .@{button-prefix}-disabled + .@{button-prefix}-disabled {
+    &:before {
+      border-left-color: transparent;
+    }
+
+    &.@{button-prefix}-ghost:not(@{button-prefix}-default) {
+      &:before {
+        height: 100%;
+        border-left-color:  @colors-primary;
+      }
+    }
+  }
+
+  // 动画效果时 左侧线的变化
+  // animation
+  // default
+  // -->  default -> increase weight
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{button-prefix} {
+    &:before {
+      border-left-color: @colors-primary;
+      height: 100%;
+    }
+  }
+
+  // 透明属性后未禁用按钮hover
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):focus {
+    &:before  {
+      border-left-color: inherit;
+    }
+  }
+
+  // hover效果后的button  将其高度设置为0
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):active + .@{button-prefix},
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):focus + .@{button-prefix} {
+    &:before {
+      height: 0;
+      transition: none;
+    }
+  }
+}
