@@ -1,0 +1,11 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+// ~ 表示动态计算
+@button-prefix: ~'@{so-prefix}-button';
+@button-disabled: ~'.@{button-prefix}-disabled';
+@icon-prefix:  ~'@{so-prefix}-icon';
+
+.@{button-prefix} {
+  display: inline-block;
+}

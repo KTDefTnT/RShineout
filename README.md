@@ -5,6 +5,14 @@
 
 A react library developed with dumi
 
+# 整体项目搭建
+## 代码规范
+### eslint
+### prettier
+
+
+### less模块化支持
+
 ## TODO
 
 整理整体样式的赋值、支持后续组件的主题切换
@@ -23,8 +31,6 @@ src
 
 utils
 -- classname.ts → 用于对各模块的 css 进行整理，加入前缀和模块名
-
-## Usage
 
 ## Options
 
