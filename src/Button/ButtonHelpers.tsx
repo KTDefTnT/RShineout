@@ -4,7 +4,7 @@ const ButtonSizes = ['large', 'small'] as const;
 export type ButtonSize = typeof ButtonSizes[number];
 
 // 按钮的类型
-const ButtonTypes = ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger'] as const;
+const ButtonTypes = ['default', 'primary', 'secondary', 'success', 'info', 'warning', 'danger', 'link'] as const;
 export type ButtonType = typeof ButtonTypes[number];
 
 // 按钮的形状

@@ -1,0 +1,196 @@
+/*
+* button的函数式表达
+* Easily pump out default styles, as well as :hover, :focus, :active,
+* and disabled options for all buttons
+*/
+.button-size(@padding-x; @padding-y; @font-size; @line-height; @radius) {
+  padding: @padding-x @padding-y;
+  line-height: @line-height;
+  font-size: @font-size;
+  border-radius: @radius;
+}
+
+// * 边框颜色
+.button-case-border-color(@color) {
+  // ~ default
+  & when(%("%s", @color) = %("%s", @btn-default-border)) {
+    border-color: @colors-primary;
+  }
+
+  // ~ primary
+  & when(%("%s", @color) = %("%s", @btn-primary-border)) {
+    border-color: @colors-primary;
+  }
+
+  // ~ success
+  & when(%("%s", @color) = %("%s", @btn-success-border)) {
+    border-color: @colors-success;
+  }
+
+  // ~ info
+  & when(%("%s", @color) = %("%s", @btn-info-border)) {
+    border-color: @colors-info;
+  }
+
+  // ~ warning
+  & when(%("%s", @color) = %("%s", @btn-warning-border)) {
+    border-color: @colors-warning;
+  }
+
+  // ~ danger
+  & when(%("%s", @color) = %("%s", @btn-danger-border)) {
+    border-color: @colors-danger;
+  }
+}
+
+// * 背景颜色
+.button-case-background(@bg) {
+  // ~ default
+  & when(%("%s", @bg) = %("%s", @btn-default-border)) {
+    background-color: @bg;
+  }
+
+  // ~ primary
+  & when(%("%s", @bg) = %("%s", @btn-primary-border)) {
+    background-color: @primary-color-dark-btn-hover;
+  }
+
+  // ~ success
+  & when(%("%s", @bg) = %("%s", @btn-success-border)) {
+    background-color: @success-color-dark-btn-hover;
+  }
+
+  // ~ info
+  & when(%("%s", @bg) = %("%s", @btn-info-border)) {
+    background-color: @info-color-dark-btn-hover;
+  }
+
+  // ~ warning
+  & when(%("%s", @bg) = %("%s", @btn-warning-border)) {
+    background-color: @warning-color-dark-btn-hover;
+  }
+
+  // ~ danger
+  & when(%("%s", @bg) = %("%s", @btn-danger-border)) {
+    background-color: @danger-color-dark-btn-hover;
+  }
+}
+
+// * 动画变化效果
+.button-case-box-shadow(@color; @width; @fade) {
+  // ~ default
+  & when(%("%s", @color) = %("%s", @btn-default-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @button-default-border-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @button-default-border-fade-0;
+    }
+  }
+
+  // ~ primary
+  & when(%("%s", @color) = %("%s", @btn-primary-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @primary-color-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @primary-color-fade-0;
+    }
+  }
+
+  // ~ success
+  & when(%("%s", @color) = %("%s", @btn-success-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @success-color-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @success-color-fade-0;
+    }
+  }
+
+  // ~ info
+  & when(%("%s", @color) = %("%s", @btn-info-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @info-color-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @info-color-fade-0;
+    }
+  }
+
+  // ~ warning
+  & when(%("%s", @color) = %("%s", @btn-warning-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @warning-color-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @warning-color-fade-0;
+    }
+  }
+
+  // ~ danger
+  & when(%("%s", @color) = %("%s", @btn-danger-border)) {
+    & when (@fade = 60%) {
+      box-shadow: 0 0 0 @width @danger-color-fade-60;
+    }
+    & when (@fade = 0%) {
+      box-shadow: 0 0 0 @width @danger-color-fade-0;
+    }
+  }
+}
+
+// * button下各类型的变体
+.button-variant(@color; @background; @outline; @name; @border:transparent) {
+  color: @color;
+  fill: @color; // ? fill干什么用的
+  background-color: @background;
+  border-color: @border;
+  transition: all .15s ease-in-out; // hover - active效果
+
+  @keyname: ~'btn-focus-@{name}';
+
+  // 动画增加box-shadow过渡变化： box-shadow颜色、box-shadow大小、字体颜色
+  @keyframes @keyname {
+    0% {
+      .button-case-box-shadow(@outline, 0, 60%);
+    }
+
+    60% {
+      .button-case-box-shadow(@outline, (@btn-focus-width / 2), 0%);
+    }
+
+    100% {
+      .button-case-box-shadow(@outline, @btn-focus-width, 0%);
+    }
+  }
+  // hover/focus 后 需要变化 背景、边框、颜色、border粗细
+  &:focus,
+  &:hover {
+    .button-case-border-color(@outline);
+    .button-case-background(@background);
+    color: @color;
+  }
+
+  // active时动画效果
+  &:active {
+    background-image: none;
+    color: @color;
+    animation: @keyname 0.4s ease-out;
+    .button-case-border-color(@outline);
+    .button-case-background(@background);
+  }
+
+  // 禁用效果 下的hover等效果 不变化
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus {
+      border-color: @border;
+      background-color: @background;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
