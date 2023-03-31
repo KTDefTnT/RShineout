@@ -26,24 +26,14 @@
       "@commitlint/config-conventional"
     ]
   },
-  "lint-staged": {
-    "*.{md,json}": [
-      "prettier --write --no-error-on-unmatched-pattern"
-    ],
-    "*.{js,jsx}": [
-      "eslint --fix"
-    ],
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --parser=typescript --write"
-    ]
-  },
   "devDependencies": {
+    "@babel/preset-react": "^7.18.6",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/lint": "^4.0.0",
+    "@babel/eslint-parser": "^7.5.4",
     "dumi": "^2.0.2",
     "eslint": "^8.23.0",
     "father": "^4.1.0",

@@ -1,10 +1,8 @@
 import classnames from 'classnames';
 import config from '../config';
 
-type moduleProps = {
-  style: { [key: string]: string };
-  module: string;
-  prefix: string;
+type styleProps = {
+  [key: string]: string;
 };
 
 /**
@@ -13,8 +11,8 @@ type moduleProps = {
  * @param module - string 当前所属模块，用于添加模块名
  * @param prefix - string, 默认为 shineout,用于css前缀
  */
-export default ({ style, module, prefix = config.prefix }: moduleProps) =>
-  (...args: string[]) => {
+export default (style: styleProps, module: string, prefix: string = config.prefix) =>
+  (...args: any[]) => {
     // 组合所有传入的参数
     const className = classnames(...args);
     if (!className) return ''; // 没有任何参数的情况下 直接返回 空字符串
