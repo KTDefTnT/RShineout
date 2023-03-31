@@ -46,32 +46,32 @@
 // * 背景颜色
 .button-case-background(@bg) {
   // ~ default
-  & when(%("%s", @bg) = %("%s", @btn-default-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-default-bg)) {
     background-color: @bg;
   }
 
   // ~ primary
-  & when(%("%s", @bg) = %("%s", @btn-primary-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-primary-bg)) {
     background-color: @primary-color-dark-btn-hover;
   }
 
   // ~ success
-  & when(%("%s", @bg) = %("%s", @btn-success-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-success-bg)) {
     background-color: @success-color-dark-btn-hover;
   }
 
   // ~ info
-  & when(%("%s", @bg) = %("%s", @btn-info-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-info-bg)) {
     background-color: @info-color-dark-btn-hover;
   }
 
   // ~ warning
-  & when(%("%s", @bg) = %("%s", @btn-warning-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-warning-bg)) {
     background-color: @warning-color-dark-btn-hover;
   }
 
   // ~ danger
-  & when(%("%s", @bg) = %("%s", @btn-danger-border)) {
+  & when(%("%s", @bg) = %("%s", @btn-danger-bg)) {
     background-color: @danger-color-dark-btn-hover;
   }
 }
@@ -187,6 +187,41 @@
     &:focus {
       border-color: @border;
       background-color: @background;
+    }
+
+    &:active {
+      animation: none;
+    }
+  }
+}
+
+// 透明背景
+.button-ghost(@color; @background; @border;) {
+  background: transparent; // 透明背景
+  border-color: @border;
+  color: @border;
+  fill: @border;
+
+  // hover, disabled的样式
+  &:focus,
+  &:hover {
+    background: @background; // 恢复成type颜色
+    color: @color;
+  }
+
+  &:active {
+    animation: @keyname 0.4s ease-out;
+    background: @background; // 恢复成type颜色
+    color: @color;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    &:focus,
+    &:hover {
+      border-color: @border; // 加上边框
+      background: transparent;
+      color: @border; // 颜色边框颜色
     }
 
     &:active {

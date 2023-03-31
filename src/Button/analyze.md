@@ -23,7 +23,7 @@ Button组件需要支持的基本特性：
 
 ## Button组件 css分析
 ### 最基础的so-button
-
+border设置： 1px solid transparent
 ### 不同的type
 不同type下主要的差异：文本颜色、背景颜色、边框颜色、hover/active/focus等的状态、点击时的动画效果。
 当前使用的css为预处理语言less， 其支持函数式的处理，对应js中的思想，可将当前各type的公共方式进行提取，
@@ -39,4 +39,17 @@ Button组件需要支持的基本特性：
 disabled状态下的按钮，不管是ghost的还是type的 都是一致性处理
 ### size的处理
 
+
+# ButtonGroup组件分析
+接收的参数
+* size 控制整体的大小，以buttonGroup的为准
+* ghost 是否配置为透明背景
+* type 若button和buttonGroup同时设置了，以buttonGroup为准
+
+## 样式处理
+* 整体样式： border的radius只存在左右两端的按钮上：特殊情况 group下仅一个按钮，则需特殊处理
+* 对于未被设置为disabled的按钮组合，需要在左侧设置一个线区分按钮，在非ghost下 border为白色，ghost下为 type颜色
+* disabled的按钮右侧的线需要全部显示
+* hover等效果：鼠标hover上需要有样式变化 - 与button一致
+* active效果：点击需要有动画效果 - box-shadow变化
 

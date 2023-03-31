@@ -74,26 +74,55 @@
 
   &-primary {
     .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border; 'primary');
+  
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      // 背景: transparent; color: type; border: 
+      .button-ghost(@btn-primary-color; @btn-primary-bg; @colors-primary;);
+    }
   }
 
-  // &-secondary {
-  //   .button-variant(@btn-secondary-color; @btn-secondary-bg; @btn-secondary-border; 'secondary');
-  // }
+  &-secondary {
+    .button-variant(@btn-secondary-color; @btn-secondary-bg; @btn-secondary-border; 'secondary');
+
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      .button-ghost(@btn-secondary-color; @btn-secondary-bg; @colors-secondary;);
+    }
+  }
 
   &-success {
     .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border; 'success');
+
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      // background: hover情况下; color: type; border: 
+      .button-ghost(@btn-success-color; @btn-success-bg; @colors-success;);
+    }
   }
 
   &-info {
     .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border; 'info');
+
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      // background: hover情况下; color: type; border: 
+      .button-ghost(@btn-info-color; @btn-info-bg; @colors-info;);
+    }
   }
 
   &-warning {
     .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border; 'warning');
+
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      // background: hover情况下; color: type; border: 
+      .button-ghost(@btn-warning-color; @btn-warning-bg; @colors-warning;);
+    }
   }
 
   &-danger {
     .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border; 'danger');
+
+    &.@{button-prefix}-ghost:not(@{button-disabled}) {
+      // background: hover情况下; color: type; border: 
+      .button-ghost(@btn-danger-color; @btn-danger-bg; @colors-danger;);
+    }
   }
 
   &-link {
@@ -108,6 +137,16 @@
     fieldset[disabled] & {
       background-color: transparent;
       .box-shadow(none);
+    }
+
+    // 单独处理link的禁用状态
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: @link-color;
+        text-decoration: none;
+      }
     }
     
     &,
@@ -125,4 +164,80 @@
     }
   }
   /********  type  end   *********/
+
+  // text类型的
+  &-text {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    display: inline-flex;
+    align-items: center;
+
+    &:not(:disabled):hover {
+      opacity: .8;
+    }
+
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      animation: none;
+    }
+
+    // 单独处理：禁用状态下的hover
+    &[disabled],
+    fieldset[disabled] & {
+      opacity: .8;
+    }
+    
+    &:disabled:hover {
+      background: transparent;
+    }
+
+    &.@{button-prefix}-primary {
+      color: @btn-primary-bg;
+    }
+
+    &.@{button-prefix}-secondary {
+      color: @btn-secondary-bg;
+    }
+
+    &.@{button-prefix}-success {
+      color: @btn-success-bg;
+    }
+
+    &.@{button-prefix}-info {
+      color: @btn-info-bg;
+    }
+
+    &.@{button-prefix}-warning {
+      color: @btn-warning-bg;
+    }
+
+    &.@{button-prefix}-danger {
+      color: @btn-danger-bg;
+    }
+  }
+
+  // 尺寸大小
+  &-large {
+    .button-size(@btn-padding-large-y; @btn-padding-large-x; @button-font-size-large; @line-height-base;  @btn-border-radius-large);
+  }
+
+  &-small {
+    .button-size(@btn-padding-small-y; @btn-padding-small-x; @button-font-size-small; @line-height-base;  @btn-border-radius-small);
+  }
+
+  // 禁用效果,其中文字和link没有背景
+  &-disabled:not(&-link):not(&-text), &-disabled:not(&-link):not(&-text):hover {
+    background: @button-disabled-bg;
+    color: @button-disabled-color;
+    fill: @button-disabled-color;
+    border-color: @button-disabled-border-color;
+  }
 }

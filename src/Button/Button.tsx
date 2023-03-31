@@ -1,6 +1,7 @@
 import React, { isValidElement } from 'react';
 import classnames from 'classnames';
 import { wrapSpan } from '../utils/element';
+import ButtonGroup from './ButtonGroup';
 import { ButtonSize, ButtonShape, ButtonType } from './ButtonHelpers';
 import buttonClass from './styles/index';
 
@@ -20,7 +21,19 @@ export type ButtonProps = {
   children: React.ReactElement; // 必填
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+// TODO 解析怎么在Button上添加ButtonGroup组件
+type CompoundedComponent = React.ForwardRefExoticComponent<
+  ButtonProps & React.RefAttributes<HTMLElement>
+> & {
+  Group: typeof ButtonGroup;
+  /** @internal */
+  __SELF_BUTTON: boolean;
+};
+
+const InternalButton: React.ForwardRefRenderFunction<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+> = (props) => {
   // 提取出props的参数
   const {
     type: typeProp = "default",
@@ -49,6 +62,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   }
 
   // secondary 为outline与primary的结合: secondary
+  // 若为非ghost和text下的  secondary, 使用primary + ghost
   const isSecondary = typeProp === 'secondary' && !ghostProp && !text;
   const type = isSecondary ? 'primary' : typeProp;
   const ghost = ghostProp || isSecondary; // 若为secondary按钮  则设为透明背景
@@ -73,5 +87,12 @@ const Button: React.FC<ButtonProps> = (props) => {
     </button>
   );
 };
+
+const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+  InternalButton,
+) as CompoundedComponent;
+
+Button.Group = ButtonGroup;
+Button.displayName = 'SelfButton';
 
 export default Button;
