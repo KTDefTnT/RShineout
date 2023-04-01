@@ -5,7 +5,6 @@ import ButtonGroup from './ButtonGroup';
 import { ButtonSize, ButtonShape, ButtonType } from './ButtonHelpers';
 import buttonClass from './styles/index';
 
-
 // Button props的定义
 export type ButtonProps = {
   type?: ButtonType;
@@ -33,7 +32,7 @@ type CompoundedComponent = React.ForwardRefExoticComponent<
 const InternalButton: React.ForwardRefRenderFunction<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
-> = (props) => {
+> = (props, ref) => {
   // 提取出props的参数
   const {
     type: typeProp = "default",

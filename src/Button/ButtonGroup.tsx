@@ -1,4 +1,5 @@
 import React, { Children, cloneElement } from 'react';
+import classnames from 'classnames';
 import { ButtonSize, ButtonType } from "./ButtonHelpers";
 import buttonClass from './styles';
 
@@ -11,20 +12,24 @@ export type ButtonGroupProps = {
 };
 
 const ButtonGroup: React.FC<ButtonGroupProps> = (props) => {
-  const { size, type, ghost, children } = props;
+  const { size, type = 'default', ghost = false, children } = props;
 
   const typeSetted = type !== 'default';
 
   // ghost或者type: default的情况 使用透明背景
-  const className = buttonClass('group', (ghost || !typeSetted) && 'ghost', props.className);
+  const className = classnames(
+    buttonClass('group', (ghost || !typeSetted) && 'ghost'), 
+    props.className
+  );
   return (
     <div className={className}>
       {
         // todo child应该怎么定义
-        Children.toArray(children).map((child: any) =>
-          // todo cloneElement的入参
-          cloneElement(child, { size, ghost, type: typeSetted ? type : child.props.type })
-        )
+        Children.toArray(children).map((child: any) => {
+          console.log('porp', typeSetted, child.props);
+           // todo cloneElement的入参
+          return cloneElement(child, { size, ghost, type: typeSetted ? type : child.props.type })
+        })
       }
     </div>
   );

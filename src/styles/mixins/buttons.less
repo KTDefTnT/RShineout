@@ -229,3 +229,95 @@
     }
   }
 }
+
+.button-group-border() {
+  // 处理button的各种情况
+  &:before {
+    // todo 需要切换颜色
+    border-left-color: @btn-default-border;
+    transition: all .2s;
+  }
+
+  // 普通类型的颜色
+  &:not(.@{button-prefix}-ghost):not(.@{button-prefix}-default):not(.@{button-prefix}-disabled) {
+    &:before {
+      border-left-color: white;
+    }
+  }
+
+  // ghost情况 - 非default的情况
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):before {
+    // 继承`button-type`的颜色
+    border-left-color: inherit;
+  }
+
+  /*
+  * disabled的情况 
+  * 1、disabled 后紧跟disabled
+  * 2、disabled后跟普通类型
+  * 3、disabled前为普通类型
+  */
+  &.@{button-prefix}-disabled:before {
+    border-left-color: white;
+  }
+
+  // 禁用后紧跟禁用按钮
+  &.@{button-prefix}-disabled + .@{button-prefix}-disabled {
+    &:before {
+      border-left-color: inherit; 
+    }
+  }
+
+
+  // disabled后的元素并非 disabled分： default和其他类型
+    // 禁用的普通元素
+  &.@{button-prefix}-disabled.@{button-prefix}-default:before,
+  &.@{button-prefix}-disabled.@{button-prefix}-outline:before {
+    border-left-color: @button-disabled-delimiter;
+  }
+
+  &.@{button-prefix}-disabled + .@{button-prefix}:not(.@{button-prefix}-disabled) {
+    // default的情况
+    &:before {
+      border-left-color: transparent;
+    }
+
+    // (ghost || !typeSetted) && 'ghost' 为ghost 且不为default代表为type
+    &.@{button-prefix}-ghost:not(.@{button-prefix}-default) {
+      &:before {
+        height: 100%;
+        border-left-color: @colors-primary;
+      }
+    }
+  }
+
+  // hover效果 - 需要将当前元素前的before和当前元素后的button的before都进行处理
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active,
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):hover + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):focus + .@{button-prefix},
+  &.@{button-prefix}-default:not(.@{button-prefix}-disabled):active + .@{button-prefix} {
+    &:before {
+      height: 100%;
+      border-left-color: @colors-primary;
+    }
+  }
+
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):hover,
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):focus,
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):active {
+    &:before {
+      border-left-color: inherit;
+    }
+  }
+
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):hover + .@{button-prefix}:not(.@{button-prefix}-disabled),
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):focus + .@{button-prefix}:not(.@{button-prefix}-disabled),
+  &.@{button-prefix}-ghost:not(.@{button-prefix}-disabled):active + .@{button-prefix}:not(.@{button-prefix}-disabled) {
+    &:before {
+      height: 0;
+      transition: none;
+    }
+  }
+}
