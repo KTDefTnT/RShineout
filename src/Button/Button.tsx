@@ -5,7 +5,6 @@ import ButtonGroup from './ButtonGroup';
 import { ButtonSize, ButtonShape, ButtonType } from './ButtonHelpers';
 import buttonClass from './styles/index';
 
-
 // Button props的定义
 export type ButtonProps = {
   type?: ButtonType;
@@ -33,10 +32,10 @@ type CompoundedComponent = React.ForwardRefExoticComponent<
 const InternalButton: React.ForwardRefRenderFunction<
   HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
-> = (props) => {
+> = (props, ref) => {
   // 提取出props的参数
   const {
-    type: typeProp = "default",
+    type: typeProp = 'default',
     ghost: ghostProp = false,
     text = false,
     space = false,
@@ -44,6 +43,7 @@ const InternalButton: React.ForwardRefRenderFunction<
     shape,
     disabled,
     loading,
+    className,
     ...others
   } = props;
 
@@ -51,7 +51,7 @@ const InternalButton: React.ForwardRefRenderFunction<
   const getChildren = () => {
     const { children } = props;
     if (!children) return children;
-    const parsed =  React.Children.map(wrapSpan(children, space), (item) => {
+    const parsed = React.Children.map(wrapSpan(children, space), (item) => {
       // 为loading 状态，且为icon时  返回null
       if (loading && isValidElement(item) && item?.type) return null;
 
@@ -59,7 +59,7 @@ const InternalButton: React.ForwardRefRenderFunction<
     }).filter((v: React.ReactElement) => v !== null);
 
     return parsed;
-  }
+  };
 
   // secondary 为outline与primary的结合: secondary
   // 若为非ghost和text下的  secondary, 使用primary + ghost
@@ -77,12 +77,12 @@ const InternalButton: React.ForwardRefRenderFunction<
       disabled,
       rtl: false, // 默认使用从左到右
     }),
-    props.className
+    className,
   );
 
   const children = getChildren();
   return (
-    <button {...others} disabled={disabled || loading} className={classNames}>
+    <button {...others} type="button" disabled={disabled || loading} className={classNames}>
       {children}
     </button>
   );
