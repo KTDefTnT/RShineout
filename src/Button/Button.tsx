@@ -1,8 +1,8 @@
-import React, { isValidElement } from 'react';
 import classnames from 'classnames';
+import React, { isValidElement } from 'react';
 import { wrapSpan } from '../utils/element';
 import ButtonGroup from './ButtonGroup';
-import { ButtonSize, ButtonShape, ButtonType } from './ButtonHelpers';
+import { ButtonShape, ButtonSize, ButtonType } from './ButtonHelpers';
 import buttonClass from './styles/index';
 
 // Button props的定义
@@ -18,21 +18,19 @@ export type ButtonProps = {
   href?: string;
   className?: string;
   children: React.ReactElement; // 必填
-}
+};
 
 // TODO 解析怎么在Button上添加ButtonGroup组件
-type CompoundedComponent = React.ForwardRefExoticComponent<
-  ButtonProps & React.RefAttributes<HTMLElement>
-> & {
+type CompoundedComponent = React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLElement>> & {
   Group: typeof ButtonGroup;
   /** @internal */
   __SELF_BUTTON: boolean;
 };
 
-const InternalButton: React.ForwardRefRenderFunction<
-  HTMLButtonElement | HTMLAnchorElement,
-  ButtonProps
-> = (props, ref) => {
+const InternalButton: React.ForwardRefRenderFunction<HTMLButtonElement | HTMLAnchorElement, ButtonProps> = (
+  props,
+  ref,
+) => {
   // 提取出props的参数
   const {
     type: typeProp = 'default',
