@@ -14,6 +14,8 @@ module.exports = {
   trailingComma: 'all',
   // object对象里面的key和value值和括号间的空格(bracketSpacing: <bool>)
   bracketSpacing: true,
+  // 每一个属性单独放置一行
+  singleAttributePerLine: true,
   overrides: [
     {
       files: '*.md',

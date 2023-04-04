@@ -80,7 +80,12 @@ const InternalButton: React.ForwardRefRenderFunction<HTMLButtonElement | HTMLAnc
 
   const children = getChildren();
   return (
-    <button {...others} type="button" disabled={disabled || loading} className={classNames}>
+    <button
+      {...others}
+      type="button"
+      disabled={disabled || loading}
+      className={classNames}
+    >
       {children}
     </button>
   );
