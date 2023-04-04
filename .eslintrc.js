@@ -9,12 +9,11 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
   ],
   // eslint的插件集，为eslint配置了一些的rules
-  plugins: [
-    '@typescript-eslint',
-  ],
+  plugins: ['@typescript-eslint'],
   // 解析器参数
-  parserOptions: { // 指定ESLint可以解析JSX语法
-    ecmaVersion: 2019,
+  parserOptions: {
+    // 指定ESLint可以解析JSX语法
+    ecmaVersion: 2022,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
@@ -37,12 +36,16 @@ module.exports = {
     // 允许在tsx中使用jsx
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
     // 配置导入文件时省略文件扩展名, 在airbnb中已被设置，需要覆盖掉原有设置
-    'import/extensions': ['error', 'ignorePackages', {
-      ts: 'never',
-      tsx: 'never',
-      js: 'never',
-      jsx: 'never',
-    }],
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
+        jsx: 'never',
+      },
+    ],
   },
   settings: {
     // 自动发现React的版本，从而进行规范react代码, 配合eslint-plugin-react
@@ -50,6 +53,19 @@ module.exports = {
       pragma: 'React',
       version: 'detect',
     },
+    // 在webpack中进行使用，直接映射到webpack的alias中
+    // 'import/resolver': {
+    //   /**
+    //    * 传入webpack 需要使用到eslint-import-resolver-webpack
+    //    * import 插件通知「eslint-import-resolver-」 + 「webpack」找到插件并使用，就能解析webpack
+    //    */
+    //   alias: {
+    //     map: [
+    //       ['@src', './src'],
+    //     ],
+    //     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    //   },
+    // },
     // eslint-plugin-import: 配置导入文件时省略文件扩展名
     'import/extensions': ['.js', '.jsx', '.ts', '.tsx'],
   },

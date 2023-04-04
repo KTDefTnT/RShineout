@@ -28,10 +28,12 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ],
     "*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write"
     ]
   },
   "devDependencies": {
