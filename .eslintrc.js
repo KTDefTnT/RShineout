@@ -7,6 +7,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
+    // 必须添加在最后位置
+    'plugin:prettier/recommended',
   ],
   // eslint的插件集，为eslint配置了一些的rules
   plugins: ['@typescript-eslint'],
