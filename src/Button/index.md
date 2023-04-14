@@ -1,5 +1,23 @@
-# Button
-ButtonGroup
+ # Button
+基础使用
+```jsx
+import { Button } from 'r-shineout';
+
+export default () => (
+  <div>
+    <Button text>Default</Button>
+    <Button disabled type="primary">Primary</Button>
+    <Button type="secondary">Secondary</Button>
+    <Button type="success">Success</Button>
+    <Button type="info">Info</Button>
+    <Button type="warning">Warning</Button>
+    <Button type="danger">Danger</Button>
+    <Button type="link">Link</Button>
+  </div>
+)
+```
+
+<!--ButtonGroup
 ```jsx
 import { Button } from 'r-shineout';
 
@@ -171,7 +189,7 @@ export default () => (
     </div>
   </div>
 )
-```
+``` -->
 
 
 

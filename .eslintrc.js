@@ -37,6 +37,8 @@ module.exports = {
     'max-len': 'off',
     // 允许在tsx中使用jsx
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
+    // 关闭prop-types的检测
+    'react/prop-types': 'off',
     // 配置导入文件时省略文件扩展名, 在airbnb中已被设置，需要覆盖掉原有设置
     'import/extensions': [
       'error',

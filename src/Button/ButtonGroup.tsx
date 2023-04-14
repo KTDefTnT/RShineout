@@ -11,7 +11,6 @@ export type ButtonGroupProps = {
   children: any;
 };
 
-// eslint-disable-next-line react/function-component-definition
 const ButtonGroup: React.FC<ButtonGroupProps> = (props) => {
   const { size, type = 'default', ghost = false, children, className } = props;
 
@@ -20,14 +19,10 @@ const ButtonGroup: React.FC<ButtonGroupProps> = (props) => {
   const classNames = classnames(buttonClass('group', (ghost || !typeSetted) && 'ghost'), className);
   return (
     <div className={classNames}>
-      {
-        // todo child应该怎么定义
-        Children.toArray(children).map((child: any) => {
-          console.log('porp', typeSetted, child.props);
-          // todo cloneElement的入参
-          return cloneElement(child, { size, ghost, type: typeSetted ? type : child.props.type });
-        })
-      }
+      {Children.toArray(children).map((child: any) => {
+        // todo cloneElement的入参
+        return cloneElement(child, { size, ghost, type: typeSetted ? type : child.props.type });
+      })}
     </div>
   );
 };
