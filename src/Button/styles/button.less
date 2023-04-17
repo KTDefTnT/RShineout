@@ -4,17 +4,15 @@
 // ~ 表示动态计算
 @button-prefix: ~'@{so-prefix}-button';
 @button-disabled: ~'.@{button-prefix}-disabled';
-@icon-prefix:  ~'@{so-prefix}-icon';
 
 .@{button-prefix} {
   display: inline-block;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   text-align: center;
   font-weight: @btn-font-weight;
   outline: none;
   background-image: none;
   border: 1px solid transparent;
-  touch-action: manipulation;
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
@@ -25,6 +23,7 @@
     &:not(&-rtl) { // 从左到右
       margin-left: @button-margin-left;
     }
+
     &-rtl { // 从右至左
       margin-right: @button-margin-left;
     }
@@ -114,6 +113,7 @@
       // background: hover情况下; color: type; border: 
       .button-ghost(@btn-warning-color; @btn-warning-bg; @colors-warning;);
     }
+
   }
 
   &-danger {
@@ -163,6 +163,7 @@
       text-decoration: @link-hover-decoration;
     }
   }
+  
   /********  type  end   *********/
 
   // text类型的
@@ -264,7 +265,7 @@
       }
 
       &:not(&-rtl) {
-        margin-left: 0px;
+        margin-left: 0;
       }
 
       // 第一个元素
@@ -275,7 +276,7 @@
           .border-right-radius(0);
         }
         &:before {
-          border-left-width: 0px;
+          border-left-width: 0;
         }
       }
 

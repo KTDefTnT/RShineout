@@ -1,0 +1,101 @@
+@import '../../styles/variables.less';
+@import '../../styles/themes/@{so-theme}.less';
+
+// ~ 表示动态计算
+@alert-prefix: ~'@{so-prefix}-alert';
+
+/*
+ * 最基本的定义: padding、margin、display、font-size、border、border-radius
+ **/
+.@{alert-prefix} {
+  position: relative;
+  display: flex;
+  padding: @alert-padding-y @alert-padding-x;
+  margin-bottom: @line-height-computed;
+  border: @alert-border-width solid transparent;
+  border-radius: @alert-border-radius;
+  font-size: @alert-font-size;
+  text-align: left;
+  transform-origin: 0 0;
+  transition: transform 0.216s, opacity 0.216s ease-out;
+
+  // 区分icon、close、content
+  &-content {
+    flex: 1;
+    word-break: break-all; // 避免英文过长不换行
+  }
+
+  // 处理icon
+  &-icon {
+    display: block;
+    margin-top: @alert-icon-margin-top;
+  }
+
+  // 处理有close按钮的情况，边距 + 20px
+  &-with-close {
+    padding-right: calc(~'@{alert-padding-x} + 20px');
+  }
+
+  // 处理close
+  &-close {
+    display: block;
+    position: absolute;
+    top: @alert-padding-y;
+    right: 12px;
+    cursor: pointer;
+    
+    // 对svg icon的处理
+    svg {
+      width: 10px;
+      height: 10px;
+
+      path {
+        fill: @alert-close-color;
+      }
+    }
+
+    &:hover svg path {
+      fill: @alert-close-hover-color;
+    }
+  }
+
+  // 关闭弹框
+  &-dismissed {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  // 不同类型样式: border颜色、背景颜色、文本、box-shadow不一致，其他样式一致
+  &.@{alert-prefix}-success {
+    .alert-variant(@alert-success-bg; @alert-success-border; @alert-success-text; @alert-success-text);
+    
+    // 兼容path， SVG图片
+    .@{alert-prefix}-icon path {
+      fill: @colors-success;
+    }
+  }
+
+  &.@{alert-prefix}-info {
+    .alert-variant(@alert-info-bg; @alert-info-border; @alert-info-text; @alert-info-text);
+    
+    .@{alert-prefix}-icon path {
+      fill: @colors-info;
+    }
+  }
+
+  &.@{alert-prefix}-warning {
+    .alert-variant(@alert-warning-bg; @alert-warning-border; @alert-warning-text; @alert-warning-text);
+  
+    .@{alert-prefix}-icon path {
+      fill: @colors-warning;
+    }
+  }
+
+  &.@{alert-prefix}-danger {
+    .alert-variant(@alert-danger-bg; @alert-danger-border; @alert-danger-text; @alert-danger-text);
+    
+    .@{alert-prefix}-icon path {
+      fill: @colors-danger;
+    }
+  }
+}
