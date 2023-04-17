@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { isValidElement } from 'react';
+import React, { isValidElement, useRef } from 'react';
 import { wrapSpan } from '../utils/element';
 import ButtonGroup from './ButtonGroup';
 import { ButtonShape, ButtonSize, ButtonType } from './ButtonHelpers';
@@ -104,7 +104,7 @@ const InternalButton: React.ForwardRefRenderFunction<HTMLButtonElement | HTMLAnc
   const children = getChildren();
 
   // 为Button创建ref
-  const buttonRef = (ref as any) || React.createRef<HTMLAnchorElement | HTMLButtonElement>();
+  const buttonRef = (ref as any) || useRef<HTMLAnchorElement | HTMLButtonElement>();
 
   return (
     <button

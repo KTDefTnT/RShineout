@@ -39,6 +39,14 @@ module.exports = {
     'react/jsx-filename-extension': ['error', { extensions: ['.tsx', '.jsx'] }],
     // 关闭prop-types的检测
     'react/prop-types': 'off',
+    // 绑定了onClick的元素 不强制绑定其他监听事件
+    'click-events-have-key': 'off',
+    // 不强制要求每一个onClick需要对应的key Events
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
+    // jsx上可以使用bind
+    'react/jsx-no-bind': 'off',
     // 配置导入文件时省略文件扩展名, 在airbnb中已被设置，需要覆盖掉原有设置
     'import/extensions': [
       'error',
